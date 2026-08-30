@@ -24,7 +24,15 @@ API_URL = "http://127.0.0.1:5000"
 # AFTER RENDER DEPLOYMENT, CHANGE TO:
 # API_URL = "https://your-api-name.onrender.com"
 
-st.error("Forecast service is unavailable.")
+response = requests.get(
+    f"{API_URL}/forecast",
+    timeout=30
+)
+
+if response.status_code == 200:
+    forecast_data = response.json()
+else:
+    st.error("Forecast service is unavailable.")
 # ============================================================
 
 st.title("📦 NorthBay FORESIGHT")
